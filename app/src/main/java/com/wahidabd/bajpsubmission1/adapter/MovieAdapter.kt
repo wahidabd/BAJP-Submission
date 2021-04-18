@@ -1,14 +1,17 @@
 package com.wahidabd.bajpsubmission1.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahidabd.bajpsubmission1.databinding.ItemsListBinding
 import com.wahidabd.bajpsubmission1.model.DataEntity
+import com.wahidabd.bajpsubmission1.ui.detail.DetailActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    
+
+    private lateinit var onItemClick: OnItemClick
     private var listData = ArrayList<DataEntity>()
     
     fun setData(data: List<DataEntity>?){
@@ -36,11 +39,19 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
                 Glide.with(itemView.context)
                     .load(data.imgPoster)
                     .into(imgItemPhoto)
-                
-//                itemCard.setOnClickListener {
-//                    callback.onItemClick(data)
-//                }
+
+                binding.itemCard.setOnClickListener {
+                    onItemClick.onItemClicked(data)
+                }
             }
         }
+    }
+
+    fun setOnItemClick(onItemClick: OnItemClick){
+        this.onItemClick = onItemClick
+    }
+
+    interface OnItemClick{
+        fun onItemClicked(data: DataEntity)
     }
 }
