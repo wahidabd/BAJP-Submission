@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATED_ANNOTATION")
+
 package com.wahidabd.bajpsubmission1.model
 
 import android.os.Parcelable
