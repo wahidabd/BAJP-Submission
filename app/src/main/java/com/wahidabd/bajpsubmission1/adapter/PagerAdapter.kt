@@ -25,6 +25,6 @@ class PagerAdapter(private val mContext: Context, fm: FragmentManager) : Fragmen
         return fragment as Fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence? = mContext.resources.getString(tabTitle[position])
+    override fun getPageTitle(position: Int): CharSequence = mContext.resources.getString(tabTitle[position])
 
 }

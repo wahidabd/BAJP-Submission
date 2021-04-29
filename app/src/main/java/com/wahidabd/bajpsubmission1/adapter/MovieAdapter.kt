@@ -1,13 +1,11 @@
 package com.wahidabd.bajpsubmission1.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahidabd.bajpsubmission1.databinding.ItemsListBinding
 import com.wahidabd.bajpsubmission1.model.DataEntity
-import com.wahidabd.bajpsubmission1.ui.detail.DetailActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
