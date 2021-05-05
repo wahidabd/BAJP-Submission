@@ -1,0 +1,9 @@
+1. HomeViewModelTest
+    - Memuat Movie dan Tv
+    - Memastikan data Movie dan Tv tidak null
+    - Memastikan jumlah data Movie dan Tv sesuai dengan harapan
+
+2. DetailViewModeltest
+    - Memuat Movie dan Tv
+    - Memastikan data Movie dan Tv tidak null
+    - Memastikan jumlah data Movie dan Tv sesuai dengan
