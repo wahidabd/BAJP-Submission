@@ -1,3 +1,3 @@
 # BAJP-Submission
 
-Repository For Submission Belajar Android Jetpack Pro Dicocing
+Repository For Submission Belajar Android Jetpack Pro Dicoding
