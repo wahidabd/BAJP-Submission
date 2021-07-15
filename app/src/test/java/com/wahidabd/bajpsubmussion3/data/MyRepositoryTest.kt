@@ -11,6 +11,7 @@ import com.wahidabd.bajpsubmussion3.models.movie.DataMovie
 import com.wahidabd.bajpsubmussion3.models.tv.DataTv
 import com.wahidabd.bajpsubmussion3.utils.DataDummy
 import com.wahidabd.bajpsubmussion3.utils.LiveDataTest
+import com.wahidabd.bajpsubmussion3.utils.PagedList
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Rule
@@ -44,7 +45,11 @@ class MyRepositoryTest {
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, DataFavorite>
         Mockito.`when`(local.getFavorite()).thenReturn(dataSourceFactory)
         repository.getFavorite()
+
+        val result = PagedList.mockPagedList(DataDummy.generateDummyFavorite())
         verify(local).getFavorite()
+        assertNotNull(result)
+        assertEquals(dataListFavorite.size, result.size)
     }
 
     @Test
@@ -52,11 +57,11 @@ class MyRepositoryTest {
         val favorite = MutableLiveData<DataFavorite>()
         Mockito.`when`(favoriteId.let { local.getFavoriteById(it) }).thenReturn(favorite)
         repository.getFavoriteById(favoriteId)
+        verify(local).getFavoriteById(favoriteId)
 
-        val favoriteModel = DataDummy.generateDummyFavorite()
-        verify(local).getFavoriteById(movieId)
+        val favoriteModel = DataDummy.generateDummyFavorite()[0]
         assertNotNull(favoriteModel)
-        assertEquals(dataListFavorite, favoriteModel)
+        assertEquals(dataFavorite.id, favoriteModel.id)
     }
 
     @Test
@@ -87,10 +92,15 @@ class MyRepositoryTest {
     @Test
     fun testGetDetailMovie() {
         doAnswer {
-            val callback = it.arguments[0] as DataCallback<DataMovie>
+            val callback = it.arguments[1] as DataCallback<DataMovie>
             callback.onDataReceived(dataMovie)
             null
         }.`when`(remote).getDetailMovie(eq(movieId), any())
+
+        val result = LiveDataTest.getValue(repository.getDetailMovie(movieId))
+        verify(remote).getDetailMovie(eq(movieId), any())
+        assertNotNull(result)
+        assertEquals(dataMovie.id, result.id)
     }
 
     @Test
@@ -108,9 +118,14 @@ class MyRepositoryTest {
     @Test
     fun testGetDetailTv() {
         doAnswer {
-            val callback = it.arguments[0] as DataCallback<DataTv>
+            val callback = it.arguments[1] as DataCallback<DataTv>
             callback.onDataReceived(dataTv)
             null
         }.`when`(remote).getDetailTv(eq(tvId), any())
+
+        val result = LiveDataTest.getValue(repository.getDetailTv(tvId))
+        verify(remote).getDetailTv(eq(tvId), any())
+        assertNotNull(result)
+        assertEquals(dataTv.id, result.id)
     }
 }
